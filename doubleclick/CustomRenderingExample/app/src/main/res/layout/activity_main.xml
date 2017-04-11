@@ -44,6 +44,69 @@
             android:checked="true"
             android:text="Start video ads muted" />
 
+        <TextView
+            android:text="Designed for Families setup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:text="Designed for Families tagging method" />
+
+        <RadioGroup
+            android:id="@+id/rg_dff_tagging_method"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:checkedButton="@+id/rb_ignore_dff" >
+            <RadioButton
+                android:id="@id/rb_ignore_dff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ignore Designed For Families setting"/>
+            <RadioButton
+                android:id="@+id/rb_setIsDesignedForFamilies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="setIsDesignedForFamilies(...)" />
+            <RadioButton
+                android:id="@+id/rb_addNetworkExtrasBundle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="addNetworkExtrasBundle"/>
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:text="Is Designed for Families?" />
+
+        <RadioGroup
+            android:id="@+id/rg_dff_value"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" 
+            android:checkedButton="@+id/rb_dff_false" >
+            <RadioButton
+                android:id="@+id/rb_dff_true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="True" />
+            <RadioButton
+                android:id="@id/rb_dff_false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="false"/>
+        </RadioGroup>
+
         <Button
             android:id="@+id/btn_refresh"
             android:layout_width="wrap_content"

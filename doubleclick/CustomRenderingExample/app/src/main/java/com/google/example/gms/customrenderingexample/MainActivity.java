@@ -23,10 +23,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.VideoController;
@@ -56,6 +58,8 @@ public class MainActivity extends ActionBarActivity {
     private CheckBox mRequestContentAds;
     private CheckBox mRequestCustomTemplateAds;
     private CheckBox mStartVideoAdsMuted;
+    private RadioGroup mDffTaggingMethodGroup;
+    private RadioGroup mDffValueGroup;
     private TextView mVideoStatus;
 
     @Override
@@ -68,6 +72,8 @@ public class MainActivity extends ActionBarActivity {
         mRequestContentAds = (CheckBox) findViewById(R.id.cb_content);
         mRequestCustomTemplateAds = (CheckBox) findViewById(R.id.cb_customtemplate);
         mStartVideoAdsMuted = (CheckBox) findViewById(R.id.cb_start_muted);
+        mDffTaggingMethodGroup = (RadioGroup) findViewById(R.id.rg_dff_tagging_method);
+        mDffValueGroup = (RadioGroup) findViewById(R.id.rg_dff_value);
         mVideoStatus = (TextView) findViewById(R.id.tv_video_status);
 
         mRefresh.setOnClickListener(new View.OnClickListener() {
@@ -378,14 +384,53 @@ public class MainActivity extends ActionBarActivity {
 
         AdLoader adLoader = builder.withAdListener(new AdListener() {
             @Override
-            public void onAdFailedToLoad(int errorCode) {
+            public void onAdFailedToLoad(final int errorCode) {
                 mRefresh.setEnabled(true);
-                Toast.makeText(MainActivity.this, "Failed to load native ad: "
-                        + errorCode, Toast.LENGTH_SHORT).show();
+                String errorReason;
+                switch(errorCode) {
+                    case PublisherAdRequest.ERROR_CODE_INTERNAL_ERROR:
+                        errorReason = "ERROR_CODE_INTERNAL_ERROR";
+                        break;
+                    case PublisherAdRequest.ERROR_CODE_INVALID_REQUEST:
+                        errorReason = "ERROR_CODE_INVALID_REQUEST";
+                        break;
+                    case PublisherAdRequest.ERROR_CODE_NETWORK_ERROR:
+                        errorReason = "ERROR_CODE_NETWORK_ERROR";
+                        break;
+                    case PublisherAdRequest.ERROR_CODE_NO_FILL:
+                        errorReason = "ERROR_CODE_NO_FILL";
+                        break;
+                    default:
+                        errorReason = "Error Code " + errorCode;
+                }
+                Toast.makeText(MainActivity.this, "Failed to load native ad due to error: "
+                        + errorReason, Toast.LENGTH_SHORT).show();
             }
         }).build();
 
-        adLoader.loadAd(new PublisherAdRequest.Builder().build());
+        PublisherAdRequest.Builder requestBuilder = new PublisherAdRequest.Builder();
+
+        final boolean isDff = mDffValueGroup.getCheckedRadioButtonId() == R.id.rb_dff_true;
+
+        final int taggingMethodId = mDffTaggingMethodGroup.getCheckedRadioButtonId();
+        switch(taggingMethodId) {
+            case R.id.rb_setIsDesignedForFamilies:
+                requestBuilder.setIsDesignedForFamilies(isDff);
+                break;
+            case R.id.rb_addNetworkExtrasBundle:
+                Bundle extras = new Bundle();
+                extras.putBoolean("is_designed_for_families", isDff);
+                requestBuilder.addNetworkExtrasBundle(AdMobAdapter.class, extras);
+                break;
+            case R.id.rb_ignore_dff:
+                // do nothing
+                break;
+            default:
+                Toast.makeText(this, "Tagging method must be selected", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        adLoader.loadAd(requestBuilder.build());
 
         mVideoStatus.setText("");
     }
