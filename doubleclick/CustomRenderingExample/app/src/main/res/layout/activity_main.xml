@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:checked="true"
+            android:checked="false"
             android:text="Request App Install Ads" />
 
         <CheckBox
@@ -34,7 +34,7 @@
             android:id="@+id/cb_customtemplate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
+            android:checked="false"
             android:text="Request Custom Template Ads" />
 
         <CheckBox
@@ -51,6 +51,13 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <CheckBox
+            android:id="@+id/cb_designed_for_families"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="Is Designed for Families?" />
 
         <TextView
             android:layout_width="match_parent"
@@ -69,43 +76,19 @@
                 android:id="@id/rb_ignore_dff"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ignore Designed For Families setting"/>
+                android:text="Ignore Designed For Families value"/>
             <RadioButton
                 android:id="@+id/rb_setIsDesignedForFamilies"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="setIsDesignedForFamilies(...)" />
+                android:text="Use setIsDesignedForFamilies(...)" />
             <RadioButton
                 android:id="@+id/rb_addNetworkExtrasBundle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="addNetworkExtrasBundle"/>
+                android:text="Use addNetworkExtrasBundle"/>
         </RadioGroup>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:text="Is Designed for Families?" />
-
-        <RadioGroup
-            android:id="@+id/rg_dff_value"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" 
-            android:checkedButton="@+id/rb_dff_false" >
-            <RadioButton
-                android:id="@+id/rb_dff_true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="True" />
-            <RadioButton
-                android:id="@id/rb_dff_false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="false"/>
-        </RadioGroup>
 
         <Button
             android:id="@+id/btn_refresh"

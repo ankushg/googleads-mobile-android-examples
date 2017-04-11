@@ -58,8 +58,8 @@ public class MainActivity extends ActionBarActivity {
     private CheckBox mRequestContentAds;
     private CheckBox mRequestCustomTemplateAds;
     private CheckBox mStartVideoAdsMuted;
+    private CheckBox mDesignedForFamilies;
     private RadioGroup mDffTaggingMethodGroup;
-    private RadioGroup mDffValueGroup;
     private TextView mVideoStatus;
 
     @Override
@@ -72,8 +72,8 @@ public class MainActivity extends ActionBarActivity {
         mRequestContentAds = (CheckBox) findViewById(R.id.cb_content);
         mRequestCustomTemplateAds = (CheckBox) findViewById(R.id.cb_customtemplate);
         mStartVideoAdsMuted = (CheckBox) findViewById(R.id.cb_start_muted);
+        mDesignedForFamilies = (CheckBox) findViewById(R.id.cb_designed_for_families);
         mDffTaggingMethodGroup = (RadioGroup) findViewById(R.id.rg_dff_tagging_method);
-        mDffValueGroup = (RadioGroup) findViewById(R.id.rg_dff_value);
         mVideoStatus = (TextView) findViewById(R.id.tv_video_status);
 
         mRefresh.setOnClickListener(new View.OnClickListener() {
@@ -410,7 +410,7 @@ public class MainActivity extends ActionBarActivity {
 
         PublisherAdRequest.Builder requestBuilder = new PublisherAdRequest.Builder();
 
-        final boolean isDff = mDffValueGroup.getCheckedRadioButtonId() == R.id.rb_dff_true;
+        final boolean isDff = mDesignedForFamilies.isChecked();
 
         final int taggingMethodId = mDffTaggingMethodGroup.getCheckedRadioButtonId();
         switch(taggingMethodId) {
